@@ -1,0 +1,46 @@
+Documentation for setting up and executing a test using TestNG with Java:
+
+## 1. Introduction
+
+TestNG is a testing framework inspired from JUnit and NUnit, but with added features to make it more powerful and easier to use. It's designed to cover all categories of tests: unit, functional, end-to-end, integration, etc.
+
+## 2. Cloning and Setting up the TestNG Framework with Java Project
+      Prerequisites:
+      a) Java Development Kit (JDK) - Ensure that you have JDK installed on your machine.
+      b) Maven - This guide assumes that the project uses Maven as a build and dependency management tool.
+      c) Git - You'll need Git to clone the repository.
+      
+      Steps:
+      I-Clone the Repository
+      
+      Open a terminal or command prompt and navigate to the directory where you'd like to clone the repository. 
+      Run:
+      $ git clone [URL_OF_THE_REPOSITORY]
+      Replace [URL_OF_THE_REPOSITORY] with the actual GitHub repository URL.
+      
+      Navigate to the Project Directory
+      
+      II-Once cloned, navigate to the project directory:
+      
+      $ cd [PROJECT_DIRECTORY_NAME]
+      Replace [PROJECT_DIRECTORY_NAME] with the name of the cloned directory.
+      
+      III-Install Dependencies using Maven
+      
+      Run the following command to install required dependencies:
+      
+      $ mvn clean install
+      This will download the necessary dependencies and compile the project.
+      
+      IV-Running the Test
+      
+      The project has a predefined Maven goal to execute tests. To run the test, use:
+      
+      $ mvn test
+      
+      Or you can run the test from the "testng.xml" file
+      
+      V-Reviewing the Results
+      
+      After executing the tests, Maven will provide a summary of the tests that have passed, failed, or were skipped.
+     
