@@ -21,17 +21,19 @@ import java.util.List;
 public class TestFetchChallenge {
     FetchChallengeMain fcm = new FetchChallengeMain();
     FetchChallengeUtility fcu=new FetchChallengeUtility();
+    int[] goldBars = {0, 1, 2, 3, 4, 5, 6, 7, 8};
     int[] fakeTriada = new int[3];
     int fakeBarNumber = 0;
 
     @Test
     public void FetchTest(){
-        int[] goldBars = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 
         Driver.getDriver().get(Config.getValue("challengeURL"));
 
-        // for solve this task by using minimum attends of weighing, was chosen approach to dividing gold bars to 3 groups.
-        //It's achieved by using helper methods from utility class
+         /*
+         for solve this task by using minimum attempts of weighing, was chosen approach (algorithm) to dividing gold bars to 3 groups.
+        It's achieved by using helper methods from utility class.
+         */
         fcu.divideBarsToGroups(goldBars);
         int[] first3 = fcu.getFirstPart();
         int[] second3 = fcu.getSecondPart();
@@ -70,7 +72,6 @@ public class TestFetchChallenge {
         fcm.buttonWeigh.click();
         Flow.wait(">".equals(weighResult) ? 3000 : 5000); // Conditional wait based on `weighResult`
         String weighResult2 = fcm.buttonResult.getText();
-        System.out.println(weighResult2);
 
         if ("=".equals(weighResult2)) {
             fakeBarNumber = selectedTriada[2];
@@ -79,9 +80,18 @@ public class TestFetchChallenge {
         } else {
             fakeBarNumber = selectedTriada[0];
         }
-        System.out.println(fakeBarNumber);
+        System.out.println("Fake gold bar's number: "+fakeBarNumber);
 
-        //fake bar is selected. Process of clicking certain fare coin on the button of web page
+        //process of counting all attempts and getting them as list
+
+        List<WebElement> listOfWeighing=fcm.listOfWeighing;
+        System.out.println("Number of attempts "+listOfWeighing.size());
+        System.out.println("Results of weighing");
+        for(WebElement weighing: listOfWeighing){
+            System.out.println(weighing.getText());
+        }
+
+        //fake bar is selected. Process of clicking certain fake coin on the bottom of web page
         WebElement fakeCoin = fcm.getCoinByFakeNumber(fakeBarNumber+"");
         fakeCoin.click();
         try {
@@ -91,10 +101,11 @@ public class TestFetchChallenge {
             //step of switching to the Alert
             Alert alert = Driver.getDriver().switchTo().alert();
             String actualMessage = Driver.getDriver().switchTo().alert().getText();
+            System.out.println("Actual message from alert is: "+actualMessage);
             alert.accept();
-            String expectedMessage = "Yay! You find it!";
+            String expectedMessage =Config.getValue("expectedPositiveMessage");
 
-            //verification part of code be using TestNG Assertions
+            //verification part of code by using TestNG Assertions
             Assert.assertEquals(actualMessage, expectedMessage);
 
         } catch (UnhandledAlertException uae) {
@@ -120,5 +131,4 @@ public class TestFetchChallenge {
     public void tearDown() {
         Driver.getDriver().quit();
     }
-
 }

@@ -34,6 +34,12 @@ public class FetchChallengeMain {
 
     @FindBy(xpath = "//div[@class='coins']//button")
     public List<WebElement> coins;
+
+    @FindBy(xpath = "//*[.='Weighings']/..//li")
+    public List <WebElement> listOfWeighing2;
+
+
+
     public WebElement getCoinByFakeNumber(String value) {
         String newValue=Integer.parseInt(value)+1+"";
 
